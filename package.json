@@ -1,12 +1,20 @@
 {
   "name": "yard-sale",
   "version": "1.0.0",
-  "description": "",
+  "description": "Este proyecto fue desarrollado durante todo el trasncurso de curso practico de frontend developer, esta construido utilizando tecnologias como HTML Y CSS.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Roberth Arrieta Contreras <sebuscaroberth@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roarco/Yard-Sale.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Roarco/Yard-Sale/issues"
+  },
+  "homepage": "https://github.com/Roarco/Yard-Sale#readme"
 }
