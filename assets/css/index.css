@@ -9,6 +9,9 @@
     --white: #FFFFFF;
     --black: #000000;
     --dark: #232830;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
 }
 
 body {
