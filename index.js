@@ -143,10 +143,13 @@ submit.addEventListener('click', (e) => {
         if (menuMobile.style.display === 'none') {
             menuMobile.style.display = 'block';
             productDetails.style.display = "none";
+            mainContainer.style.display = "none";
         }
         else {
             menuMobile.style.display = 'none';
             productDetails.style.display = "block";
+            mainContainer.style.display = "block";
+            productDetails.style.display = "none";
         }
     })
 
@@ -223,16 +226,25 @@ submit.addEventListener('click', (e) => {
 </div>
 `
     app.appendChild(productDetails);
+
     navbarShoppingCart.addEventListener('click', (ev) => {
         if (productDetails.style.display === 'none') {
             productDetails.style.display = 'block';
             menuMobile.style.display = "none";
             menuDesktop.style.display = "none";
+            productDetails2.style.display = "none";
+
+            if (window.innerWidth > 840) {
+                mainContainer.style.display = "block";
+            } else if (window.innerWidth < 840 && productDetails.style.display === 'block') {
+                mainContainer.style.display = "none";
+            }
         }
         else {
             productDetails.style.display = 'none';
+            mainContainer.style.display = "block";
             window.addEventListener('resize', () => {
-                if (window.innerWidth > 640) {
+                if (window.innerWidth > 840) {
                     menuMobile.style.display = 'none';
                 }
             })
@@ -251,22 +263,31 @@ submit.addEventListener('click', (e) => {
     mainContainer.appendChild(cardContainer);
 
     const dataCard = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 2; i++) {
         dataCard.push({
             id: i,
             name: 'Bike',
             price: '$120.00',
             image: 'https://cdn.pixabay.com/photo/2013/10/03/23/19/bike-190483_960_720.jpg',
+            description: 'with its practical position. this bike also fulfills a decorative function, add your hall or workspace',
+            icon: '../assets/icons/bt_add_to_cart.svg',
+        })
+        dataCard.push({
+            id: i,
+            name: 'Mobile',
+            price: '$1500.00',
+            image: 'https://cdn.pixabay.com/photo/2016/03/27/17/59/motorcycle-1283299_960_720.jpg',
+            description: 'with its practical position. this bike also fulfills a decorative function, add your hall or workspace',
             icon: '../assets/icons/bt_add_to_cart.svg',
         })
     }
 
-    function renderCard(arr){
+    function renderCard(arr) {
         for (product of dataCard) {
             const card = document.createElement('div');
             card.classList.add('product-card');
             card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
+                <img src="${product.image}" class="detail" alt="${product.name}">
                 <div class= "product-info">
                 <div>
                     <p>${product.price}</p>
@@ -284,4 +305,55 @@ submit.addEventListener('click', (e) => {
 
     app.appendChild(mainContainer);
 
+
+    /* cada vez que se de click sobre la img del producto imprimir click */
+    const detail = document.querySelectorAll('.detail');
+
+    const productDetails2 = document.createElement('aside');
+    productDetails2.classList.add('product-details2');
+    productDetails2.style.display = 'none';
+
+    detail.forEach(img => {
+        img.addEventListener('click', (ev) => {
+
+            for (product of dataCard) {
+                if (product.name === img.alt) {
+                    productDetails2.innerHTML = `
+                <div class="product-details2-close">
+                    <img src="../assets/icons/icon_close.png" class="close" alt="close">
+                </div>
+                <img src="${product.image}" alt="${product.name}" class="product">
+                <div class="product-info2">
+                    <p>${product.price}</p>
+                    <p>${product.name}</p>
+                    <p>${product.description}</p>
+                <button class="primary-button">
+                    <img src="../assets/icons/bt_add_to_cart.svg" alt="add to cart">
+                    Add to cart
+                </button>
+                </div>
+                `
+                }
+            }
+            app.appendChild(productDetails2);
+
+            if (productDetails2.style.display === 'none') {
+                productDetails2.style.display = 'block';
+                productDetails.style.display = 'none';
+
+                if (window.innerWidth > 840) {
+                    mainContainer.style.display = "block";
+                } else if (window.innerWidth < 840 && productDetails2.style.display === 'block') {
+                    mainContainer.style.display = "none";
+                }
+            }
+
+            const close = document.querySelector('.close');
+            close.addEventListener('click', (ev) => {
+                productDetails2.style.display = 'none';
+                mainContainer.style.display = "block";
+                app.removeChild(productDetails2);
+            })
+        })
+    })
 })
